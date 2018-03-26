@@ -11,11 +11,10 @@ from googletrans import Translator
 #==============================================================================#
 botStart = time.time()
 
-line = LINE()
-#line = LINE("auth token")
-line = LINE("gungari401@gmail.com","ari123io44")
+line = LINE("ErSMFtSKllCr5ro6kMu9.yUnazXTjcZ0bINB6Xni1cq.sXvrubHa2SDymhMPAMN6mkWfK+1Npz4r69Ru2T1nP5g=")
 line.log("Auth Token : " + str(line.authToken))
-
+line.log("Timeline Token : " + str(line.tl.channelAccessToken))
+	    
 lineMID = line.profile.mid
 lineProfile = line.getProfile()
 lineSettings = line.getSettings()
