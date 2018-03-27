@@ -101,7 +101,7 @@ def helpmessage():
                   "╠ Secret" + "\n" + \
                   "╚══[ Ketik salah satu diatas ]"
     return helpMessage
-    
+
 def helpself():
     helpSelf =   "╔══[ S E L F ]" + "\n" + \
                  "╠ Me" + "\n" + \
@@ -122,10 +122,9 @@ def helpself():
                  "╠ RestoreProfile" + "\n" + \
                  "╠ Cek @" + "\n" + \
                  "╠ Removechat" + "\n" + \
-                 "╚══[ Jangan Typo ]" + "\n" + "\n\n" + \
- 
+                 "╚══[ Jangan Typo ]"
     return helpSelf
-    
+             
 def helpgroup():
     helpGroup =    "╔══[ G R O U P ]" + "\n" + \
                    "╠ GroupCreator" + "\n" + \
@@ -137,11 +136,11 @@ def helpgroup():
                    "╠ GroupList" + "\n" + \
                    "╠ GroupMemberList" + "\n" + \
                    "╠ GroupInfo" + "\n" + \
-                   "╚══[ Jangan Typo ]" + "\n" + "\n\n" + \
+                   "╚══[ Jangan Typo ]"
     return helpGroup
 
 def helpmedia():
-    helpMedia =    "╔══[ M E D I A ]" + "\n" + \ \
+    helpMedia =    "╔══[ M E D I A ]"  + "\n" + \
                    "╠ Kalender" + "\n" + \
                    "╠ CheckDate「Date」" + "\n" + \
                    "╠ InstagramInfo「UserName」" + "\n" + \
@@ -151,7 +150,7 @@ def helpmedia():
                    "╠ SearchLyric「Search」" + "\n" + \
                    "╠ SearchImage「Search」" + "\n" + \
                    "╠ ScreenshootWebsite「LinkURL」" + "\n" + \
-                   "╚══[ Jangan Typo ]" + "\n" + "\n\n" + \
+                   "╚══[ Jangan Typo ]"
     return helpMedia
 
 def helpsecret():
@@ -167,7 +166,7 @@ def helpsecret():
                     "╠ AutoRead「On/Off」" + "\n" + \
                     "╠ CheckSticker「On/Off」" + "\n" + \
                     "╠ DetectMention「On/Off」" + "\n" + \
-                    "╚══[ Jangan Typo ]" + "\n" + "\n\n" + \
+                    "╚══[ Jangan Typo ]"
     return helpSecret
 #==============================================================================#
 def lineBot(op):
@@ -211,19 +210,23 @@ def lineBot(op):
                     line.sendMessage(to, str(helpMessage))
                     line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'self':
-                    helpTextToSpeech = helpself()
+                    helpSelf = helpself()
                     line.sendMessage(to, str(helpSelf))
+                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'group':
-                    helpTranslate = helpgroup()
+                    helpGroup = helpgroup()
                     line.sendMessage(to, str(helpGroup))
+                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'media':
-                    helpTranslate = helpmedia()
+                    helpMedia = helpmedia()
                     line.sendMessage(to, str(helpMedia))
+                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'secret':
-                    helpTranslate = helpsecet()
+                    helpSecret = helpsecret()
                     line.sendMessage(to, str(helpSecret))
+                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
 #==============================================================================#
-                elif text.lower() == 'speed':
+                elif text.lower() == 'sp':
                     start = time.time()
                     line.sendMessage(to, "Process")
                     elapsed_time = time.time() - start
