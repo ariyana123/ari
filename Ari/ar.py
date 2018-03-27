@@ -222,7 +222,7 @@ def lineBot(op):
                     line.sendMessage(to, str(helpSecret))
 #==============================================================================#
                 elif text.lower() == 'crash':
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
+                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509','")
                     line.sendMessage(to, "hahaha")
                 elif text.lower() == 'sp':
                     start = time.time()
