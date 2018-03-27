@@ -17,6 +17,7 @@ line.log("Timeline Token : " + str(line.tl.channelAccessToken))
 lineMID = line.profile.mid
 lineProfile = line.getProfile()
 lineSettings = line.getSettings()
+Ari = ["u62e340671b490b3d018a76fac4d23509"]
 oepoll = OEPoll(line)
 #==============================================================================#
 settings = {
@@ -119,8 +120,6 @@ def helpself():
                  "╠ StealCover「Mention」" + "\n" + \
                  "╠ CloneProfile「Mention」" + "\n" + \
                  "╠ RestoreProfile" + "\n" + \
-                 "╠ Cek @" + "\n" + \
-                 "╠ Removechat" + "\n" + \
                  "╚══[ Jangan Typo ]"
     return helpSelf
              
@@ -165,6 +164,7 @@ def helpsecret():
                     "╠ AutoRead「On/Off」" + "\n" + \
                     "╠ CheckSticker「On/Off」" + "\n" + \
                     "╠ DetectMention「On/Off」" + "\n" + \
+                    "╠ Kick @" + "\n" + \
                     "╚══[ Jangan Typo ]"
     return helpSecret
 #==============================================================================#
@@ -220,6 +220,37 @@ def lineBot(op):
                     helpSecret = helpsecret()
                     line.sendMessage(to, str(helpSecret))
 #==============================================================================#
+                elif ".kick" in text.lower():
+                    if msg._from in Ari:
+                        key = eval(msg.contentMetadata["MENTION"])
+                        key["MENTIONEES"][0]["M"]
+                        targets = []
+                        for x in key["MENTIONEES"]:
+                            targets.append(x["M"])
+                        for target in targets:
+                            if target in Ari:
+                                pass
+                            else:
+                                try:
+                                    line.sendMessageWithMention(msg.to,target,"Maaf","aku kick")
+                                    line.kickoutFromGroup(msg.to,[target])
+                                except:
+                                    pass
+                elif text.lower() == 'kick':
+                       targets = []
+                       mention = eval(msg.contentMetadata["MENTION"])
+                       mention["MENTIONEES"] [0] ["M"]
+                       for x in mention["MENTIONEES"]:
+                           targets.append(x["M"])
+                       for target in targets:
+                           try:
+                               line.kickoutFromGroup(msg.to,[target])
+                               line.findAndAddContactsByMid(msg.to,[target])
+                               line.inviteIntoGroup(msg.to,[target])
+                               line.cancelGroupInvitation(msg.to,[target])
+                           except:
+                               line.sendText(msg.to,"Error")
+                               
                 elif text.lower() == 'crash':
                     line.sendContact(to, "u62e340671b490b3d018a76fac4d23509','")
                     line.sendMessage(to, "hahaha")
@@ -742,23 +773,6 @@ def lineBot(op):
                     else:
                         line.sendMessage(receiver,"Lurking has not been set.")
 #==============================================================================#
-                elif "cek" in text.lower():
-                    key = eval(msg.contentMetadata["MENTION"])
-                    keys = key["MENTIONEES"][0]["M"]
-                    ra = cl.getContact(keys)
-                    try:
-                        line.sendImageWithURL(msg.to,"http://dl.profile.line-cdn.net/{}".format(str(ra.pictureStatus)))
-                        line.sendMessageWithMention(msg.to,ra.mid,"[Nama]\n","\n\n[Bio]\n{}".format(str(ra.statusMessage)))
-                    except:
-                        pass
-                        
-                elif text.lower() == "removechat":
-                        try:
-                            line.removeAllMessages(op.param2)
-                            line.sendMessageWithMention(msg.to,msg._from,"","Chat bersih...")
-                        except:
-                            pass
-#==============================================================================#
                 elif msg.text.lower().startswith("say "):
                     sep = text.split(" ")
                     say = text.replace(sep[0] + " ","")
@@ -946,11 +960,11 @@ def lineBot(op):
                         try:
                             data = json.loads(r.text)
                             for song in data:
-                                ret_ = "╔══[ Music ]"
-                                ret_ += "\n╠ Nama lagu : {}".format(str(song[0]))
-                                ret_ += "\n╠ Durasi : {}".format(str(song[1]))
-                                ret_ += "\n╠ Link : {}".format(str(song[4]))
-                                ret_ += "\n╚══[ reading Audio ]"
+                                ret_ = "「Music」"
+                                ret_ += "\n• Nama lagu : {}".format(str(song[0]))
+                                ret_ += "\n• Durasi : {}".format(str(song[1]))
+                                ret_ += "\n• Link : {}".format(str(song[4]))
+                                ret_ += "\n「Audio」"
                                 line.sendMessage(to, str(ret_))
                                 line.sendAudioWithURL(to, song[3])
                         except:
@@ -972,11 +986,11 @@ def lineBot(op):
                                 removeString = "[1234567890.:]"
                                 for char in removeString:
                                     lyric = lyric.replace(char,'')
-                                ret_ = "╔══[ Lyric ]"
-                                ret_ += "\n╠ Nama lagu : {}".format(str(song[0]))
-                                ret_ += "\n╠ Durasi : {}".format(str(song[1]))
-                                ret_ += "\n╠ Link : {}".format(str(song[4]))
-                                ret_ += "\n╚══[ Finish ]\n{}".format(str(lyric))
+                                ret_ = "「Lyric」"
+                                ret_ += "\n• Nama lagu : {}".format(str(song[0]))
+                                ret_ += "\n• Durasi : {}".format(str(song[1]))
+                                ret_ += "\n• Link : {}".format(str(song[4]))
+                                ret_ += "\n「Finish」\n{}".format(str(lyric))
                                 line.sendMessage(to, str(ret_))
                         except:
                             line.sendMessage(to, "Lirik tidak ditemukan")
@@ -985,12 +999,11 @@ def lineBot(op):
                     stk_id = msg.contentMetadata['STKID']
                     stk_ver = msg.contentMetadata['STKVER']
                     pkg_id = msg.contentMetadata['STKPKGID']
-                    ret_ = "╔══[ Sticker Info ]"
-                    ret_ += "\n╠ STICKER ID : {}".format(stk_id)
-                    ret_ += "\n╠ STICKER PACKAGES ID : {}".format(pkg_id)
-                    ret_ += "\n╠ STICKER VERSION : {}".format(stk_ver)
-                    ret_ += "\n╠ STICKER URL : line://shop/detail/{}".format(pkg_id)
-                    ret_ += "\n╚══[ Finish ]"
+                    ret_ = "「Stiker Info」"
+                    ret_ += "\n• STICKER ID : {}".format(stk_id)
+                    ret_ += "\n• STICKER PACKAGES ID : {}".format(pkg_id)
+                    ret_ += "\n• STICKER VERSION : {}".format(stk_ver)
+                    ret_ += "\n• STICKER URL : line://shop/detail/{}".format(pkg_id)
                     line.sendMessage(to, str(ret_))
 #==============================================================================#
         if op.type == 26:
@@ -1027,7 +1040,6 @@ def lineBot(op):
                                 if settings["detectMention"] == True:
                                     contact = line.getContact(sender)
                                     line.sendMessage(to, "apa sih tag-tag pc aja kalau perlu")
-                                    sendMessageWithMention(to, contact.mid)
                                 break
 #==============================================================================#
         if op.type == 55:
