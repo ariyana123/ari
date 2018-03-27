@@ -14,7 +14,6 @@ botStart = time.time()
 line = LINE("ErSMFtSKllCr5ro6kMu9.yUnazXTjcZ0bINB6Xni1cq.sXvrubHa2SDymhMPAMN6mkWfK+1Npz4r69Ru2T1nP5g=")
 line.log("Auth Token : " + str(line.authToken))
 line.log("Timeline Token : " + str(line.tl.channelAccessToken))
-	    
 lineMID = line.profile.mid
 lineProfile = line.getProfile()
 lineSettings = line.getSettings()
@@ -25,7 +24,7 @@ settings = {
     "autoJoin": False,
     "autoLeave": False,
     "autoRead": False,
-    "detectMention": False,
+    "detectMention": True,
     "checkSticker": False,
     "userAgent": [
         "Mozilla/5.0 (X11; U; Linux i586; de; rv:5.0) Gecko/20100101 Firefox/5.0",
@@ -177,7 +176,7 @@ def lineBot(op):
         if op.type == 5:
             print ("[ 5 ] NOTIFIED ADD CONTACT")
             if settings["autoAdd"] == True:
-                line.sendMessage(op.param1, "Halo {} terimakasih telah menambahkan saya sebagai teman :D".format(str(line.getContact(op.param1).displayName)))
+                line.sendMessage(op.param1, "Halo {} terimakasih telah menambahkan saya sebagai teman :D, sekalian kak 50c 4k via pulsa, akun wifi id permanent 30k".format(str(line.getContact(op.param1).displayName)))
         if op.type == 13:
             print ("[ 13 ] NOTIFIED INVITE GROUP")
             group = line.getGroup(op.param1)
@@ -224,6 +223,17 @@ def lineBot(op):
                 elif text.lower() == 'crash':
                     line.sendContact(to, "u62e340671b490b3d018a76fac4d23509','")
                     line.sendMessage(to, "hahaha")
+                elif text.lower() == 'spam':
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
+                    line.sendMessage(to, "p")
                 elif text.lower() == 'sp':
                     start = time.time()
                     line.sendMessage(to, "Process")
@@ -1016,7 +1026,7 @@ def lineBot(op):
                             if lineMID in mention["M"]:
                                 if settings["detectMention"] == True:
                                     contact = line.getContact(sender)
-                                    line.sendMessage(to, "sundala nu")
+                                    line.sendMessage(to, "apa sih tag-tag pc aja kalau perlu")
                                     sendMessageWithMention(to, contact.mid)
                                 break
 #==============================================================================#
