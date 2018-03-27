@@ -220,7 +220,7 @@ def lineBot(op):
                     helpSecret = helpsecret()
                     line.sendMessage(to, str(helpSecret))
 #==============================================================================#
-                elif ".kick" in text.lower():
+                elif ".kick " in text.lower():
                     if msg._from in Ari:
                         key = eval(msg.contentMetadata["MENTION"])
                         key["MENTIONEES"][0]["M"]
@@ -236,7 +236,7 @@ def lineBot(op):
                                     line.kickoutFromGroup(msg.to,[target])
                                 except:
                                     pass
-                elif text.lower() == 'kick':
+                elif text.lower() == 'kick ':
                        targets = []
                        mention = eval(msg.contentMetadata["MENTION"])
                        mention["MENTIONEES"] [0] ["M"]
