@@ -208,24 +208,22 @@ def lineBot(op):
                 if text.lower() == 'help':
                     helpMessage = helpmessage()
                     line.sendMessage(to, str(helpMessage))
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'self':
                     helpSelf = helpself()
                     line.sendMessage(to, str(helpSelf))
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'group':
                     helpGroup = helpgroup()
                     line.sendMessage(to, str(helpGroup))
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'media':
                     helpMedia = helpmedia()
                     line.sendMessage(to, str(helpMedia))
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
                 elif text.lower() == 'secret':
                     helpSecret = helpsecret()
                     line.sendMessage(to, str(helpSecret))
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
 #==============================================================================#
+                elif text.lower() == 'crash':
+                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509")
+                    line.sendMessage(to, "hahaha")
                 elif text.lower() == 'sp':
                     start = time.time()
                     line.sendMessage(to, "Process")
