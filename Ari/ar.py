@@ -17,15 +17,13 @@ line.log("Timeline Token : " + str(line.tl.channelAccessToken))
 lineMID = line.profile.mid
 lineProfile = line.getProfile()
 lineSettings = line.getSettings()
-Ari = ["u62e340671b490b3d018a76fac4d23509"]
-oepoll = OEPoll(line)
 #==============================================================================#
 settings = {
     "autoAdd": False,
     "autoJoin": False,
     "autoLeave": False,
     "autoRead": False,
-    "detectMention": True,
+    "detectMention": False,
     "checkSticker": False,
     "userAgent": [
         "Mozilla/5.0 (X11; U; Linux i586; de; rv:5.0) Gecko/20100101 Firefox/5.0",
@@ -111,13 +109,13 @@ def helpself():
                  "╠ MyPicture" + "\n" + \
                  "╠ MyVideoProfile" + "\n" + \
                  "╠ MyCover" + "\n" + \
-                 "╠ StealContact「Mention」" + "\n" + \
-                 "╠ StealMid「Mention」" + "\n" + \
-                 "╠ StealName「Mention」" + "\n" + \
-                 "╠ StealBio「Mention」" + "\n" + \
-                 "╠ StealPicture「Mention」" + "\n" + \
-                 "╠ StealVideoProfile「Mention」" + "\n" + \
-                 "╠ StealCover「Mention」" + "\n" + \
+                 "╠ GetContact「Mention」" + "\n" + \
+                 "╠ GetMid「Mention」" + "\n" + \
+                 "╠ GetName「Mention」" + "\n" + \
+                 "╠ GetBio「Mention」" + "\n" + \
+                 "╠ Pp「Mention」" + "\n" + \
+                 "╠ Pp1「Mention」" + "\n" + \
+                 "╠ Cover「Mention」" + "\n" + \
                  "╠ CloneProfile「Mention」" + "\n" + \
                  "╠ RestoreProfile" + "\n" + \
                  "╚══[ Jangan Typo ]"
@@ -141,13 +139,18 @@ def helpmedia():
     helpMedia =    "╔══[ M E D I A ]"  + "\n" + \
                    "╠ Kalender" + "\n" + \
                    "╠ CheckDate「Date」" + "\n" + \
-                   "╠ InstagramInfo「UserName」" + "\n" + \
+                   "╠ InstaInfo「UserName」" + "\n" + \
                    "╠ InstagramPost「UserName」" + "\n" + \
                    "╠ SearchYoutube「Search」" + "\n" + \
-                   "╠ SearchMusic「Search」" + "\n" + \
-                   "╠ SearchLyric「Search」" + "\n" + \
+                   "╠ Yt-mp3「Search」" + "\n" + \
+                   "╠ Fs「Word」" + "\n" + \
+                   "╠ Music「Search」" + "\n" + \
+                   "╠ 1cak「Search」" + "\n" + \
+                   "╠ Imgur「Search」" + "\n" + \
+                   "╠ Movie「Search」" + "\n" + \
                    "╠ SearchImage「Search」" + "\n" + \
-                   "╠ ScreenshootWebsite「LinkURL」" + "\n" + \
+                   "╠ Announce「Word」" + "\n" + \
+                   "╠ Ssweb「LinkURL」" + "\n" + \
                    "╚══[ Jangan Typo ]"
     return helpMedia
 
@@ -176,7 +179,7 @@ def lineBot(op):
         if op.type == 5:
             print ("[ 5 ] NOTIFIED ADD CONTACT")
             if settings["autoAdd"] == True:
-                line.sendMessage(op.param1, "Halo {} terimakasih telah menambahkan saya sebagai teman :D, sekalian kak 50c 4k via pulsa, akun wifi id permanent 30k".format(str(line.getContact(op.param1).displayName)))
+                line.sendMessage(op.param1, "Halo {} terimakasih telah menambahkan saya sebagai teman :D, sekalian kak 50c 5k via pulsa, akun wifi id permanent 30k".format(str(line.getContact(op.param1).displayName)))
         if op.type == 13:
             print ("[ 13 ] NOTIFIED INVITE GROUP")
             group = line.getGroup(op.param1)
@@ -377,7 +380,7 @@ def lineBot(op):
                     me = line.getContact(lineMID)
                     cover = line.getProfileCoverURL(lineMID)    
                     line.sendImageWithURL(msg.to, cover)
-                elif msg.text.lower().startswith("stealcontact "):
+                elif msg.text.lower().startswith("getcontact "):
                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                         names = re.findall(r'@(\w+)', text)
                         mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -390,7 +393,7 @@ def lineBot(op):
                             contact = line.getContact(ls)
                             mi_d = contact.mid
                             line.sendContact(msg.to, mi_d)
-                elif msg.text.lower().startswith("stealmid "):
+                elif msg.text.lower().startswith("getmid "):
                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                         names = re.findall(r'@(\w+)', text)
                         mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -403,7 +406,7 @@ def lineBot(op):
                         for ls in lists:
                             ret_ += "\n{}" + ls
                         line.sendMessage(msg.to, str(ret_))
-                elif msg.text.lower().startswith("stealname "):
+                elif msg.text.lower().startswith("getname "):
                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                         names = re.findall(r'@(\w+)', text)
                         mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -415,7 +418,7 @@ def lineBot(op):
                         for ls in lists:
                             contact = line.getContact(ls)
                             line.sendMessage(msg.to, "[ Display Name ]\n" + contact.displayName)
-                elif msg.text.lower().startswith("stealbio "):
+                elif msg.text.lower().startswith("getbio "):
                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                         names = re.findall(r'@(\w+)', text)
                         mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -427,7 +430,7 @@ def lineBot(op):
                         for ls in lists:
                             contact = line.getContact(ls)
                             line.sendMessage(msg.to, "[ Status Message ]\n{}" + contact.statusMessage)
-                elif msg.text.lower().startswith("stealpicture "):
+                elif msg.text.lower().startswith("pp "):
                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                         names = re.findall(r'@(\w+)', text)
                         mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -439,7 +442,7 @@ def lineBot(op):
                         for ls in lists:
                             path = "http://dl.profile.line.naver.jp/" + line.getContact(ls).pictureStatus
                             line.sendImageWithURL(msg.to, str(path))
-                elif msg.text.lower().startswith("stealvideoprofile "):
+                elif msg.text.lower().startswith("pp1 "):
                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                         names = re.findall(r'@(\w+)', text)
                         mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -451,7 +454,7 @@ def lineBot(op):
                         for ls in lists:
                             path = "http://dl.profile.line.naver.jp/" + line.getContact(ls).pictureStatus + "/vp"
                             line.sendImageWithURL(msg.to, str(path))
-                elif msg.text.lower().startswith("stealcover "):
+                elif msg.text.lower().startswith("cover "):
                     if line != None:
                         if 'MENTION' in msg.contentMetadata.keys()!= None:
                             names = re.findall(r'@(\w+)', text)
@@ -832,15 +835,19 @@ def lineBot(op):
                     for k in range(0, len(bulan)):
                         if bln == str(k): bln = bulan[k-1]
                     readTime = hasil + ", " + timeNow.strftime('%d') + " - " + bln + " - " + timeNow.strftime('%Y') + "\nJam : [ " + timeNow.strftime('%H:%M:%S') + " ]"
-                    line.sendMessage(msg.to, readTime)                 
-                elif "screenshotwebsite" in msg.text.lower():
+                    line.sendMessage(msg.to, readTime)           
+                    
+                elif "ssweb" in text.lower():
                     sep = text.split(" ")
                     query = text.replace(sep[0] + " ","")
                     with requests.session() as web:
                         r = web.get("http://rahandiapi.herokuapp.com/sswebAPI?key=betakey&link={}".format(urllib.parse.quote(query)))
                         data = r.text
                         data = json.loads(data)
-                        line.sendImageWithURL(to, data["result"])
+                        a = data["result"].replace(".png","")
+                        pict = a+".webp?maxwidth=640&shape=thumb&fidelity=medium"
+                        line.sendImageWithURL(to, pict)
+                        
                 elif "checkdate" in msg.text.lower():
                     sep = msg.text.split(" ")
                     tanggal = msg.text.replace(sep[0] + " ","")
@@ -854,35 +861,34 @@ def lineBot(op):
                     ret_ += "\n╠ Zodiak : {}".format(str(data["data"]["zodiak"]))
                     ret_ += "\n╚══[ Success ]"
                     line.sendMessage(to, str(ret_))
-                elif "instagraminfo" in msg.text.lower():
-                    sep = text.split(" ")
-                    search = text.replace(sep[0] + " ","")
-                    with requests.session() as web:
-                        web.headers["User-Agent"] = random.choice(settings["userAgent"])
-                        r = web.get("https://www.instagram.com/{}/?__a=1".format(search))
-                        try:
-                            data = json.loads(r.text)
-                            ret_ = "╔══[ Profile Instagram ]"
-                            ret_ += "\n╠ Nama : {}".format(str(data["user"]["full_name"]))
-                            ret_ += "\n╠ Username : {}".format(str(data["user"]["username"]))
-                            ret_ += "\n╠ Bio : {}".format(str(data["user"]["biography"]))
-                            ret_ += "\n╠ Pengikut : {}".format(format_number(data["user"]["followed_by"]["count"]))
-                            ret_ += "\n╠ Diikuti : {}".format(format_number(data["user"]["follows"]["count"]))
-                            if data["user"]["is_verified"] == True:
-                                ret_ += "\n╠ Verifikasi : Sudah"
-                            else:
-                                ret_ += "\n╠ Verifikasi : Belum"
-                            if data["user"]["is_private"] == True:
+                elif msg.text.lower().startswith("instainfo "):
+                    try:
+                        sep = msg.text.split(" ")
+                        search = msg.text.replace(sep[0] + " ","")
+                        r = requests.get("https://farzain.xyz/api/ig_profile.php?apikey=APIKEY&id=".format(urllib2.quote(search)))
+                        data = r.text
+                        data = json.loads(r.text)
+                        ret_ = "╔══[ Profile Instagram ]"
+                        ret_ += "\n╠ Nama : {}".format(str(data["graphql"]["user"]["full_name"]))
+                        ret_ += "\n╠ Username : {}".format(str(data["graphql"]["user"]["username"]))
+                        ret_ += "\n╠ Bio : {}".format(str(data["graphql"]["user"]["biography"]))
+                        ret_ += "\n╠ Pengikut : {}".format(format_number(data["graphql"]["user"]["followed_by"]["count"]))
+                        ret_ += "\n╠ Diikuti : {}".format(format_number(data["graphql"]["user"]["follows"]["count"]))
+                        if data["graphql"]["user"]["is_verified"] == True:
+                            ret_ += "\n╠ Verifikasi : Sudah"
+                        else:
+                            ret_ += "\n╠ Verifikasi : Belum"
+                            if data["graphql"]["user"]["is_private"] == True:
                                 ret_ += "\n╠ Akun Pribadi : Iya"
                             else:
                                 ret_ += "\n╠ Akun Pribadi : Tidak"
-                            ret_ += "\n╠ Total Post : {}".format(format_number(data["user"]["media"]["count"]))
-                            ret_ += "\n╚══[ https://www.instagram.com/{} ]".format(search)
-                            path = data["user"]["profile_pic_url_hd"]
-                            line.sendImageWithURL(to, str(path))
-                            line.sendMessage(to, str(ret_))
-                        except:
-                            line.sendMessage(to, "Pengguna tidak ditemukan")
+                                ret_ += "\n╠ Total Post : {}".format(format_number(data["graphql"]["user"]["media"]["count"]))
+                                ret_ += "\n╚══[ https://www.instagram.com/{} ]".format(search)
+                                path = data["graphql"]["user"]["profile_pic_url_hd"]
+                                line.sendImageWithURL(to, str(path))
+                                line.sendText(to, str(ret_))
+                    except Exception as error:
+                        line.sendText(to, str(error))
                 elif "instagrampost" in msg.text.lower():
                     separate = msg.text.split(" ")
                     user = msg.text.replace(separate[0] + " ","")
@@ -925,12 +931,17 @@ def lineBot(op):
 
                 elif text.lower() == 'announce':
                     gett = line.getChatRoomAnnouncements(receiver)
-                    for a in gett:
+                    gr = line.getGroup(receiver).name
+                    result = '[Announce On %s:]\n\n' % gr
+                    for i,a in enumerate(gett,1):
                         aa = line.getContact(a.creatorMid).displayName
                         bb = a.contents
                         cc = bb.link
                         textt = bb.text
-                        line.sendText(receiver, 'Link: ' + str(cc) + '\nText: ' + str(textt) + '\nMaker: ' + str(aa))
+                        result+='%d.Link: %s\nText : %s\nMaker : %s' % (i,str(cc),str(textt),str(aa))
+                    result+='Total Announcement : %s' % len(gett)
+                    line.sendMessage(receiver,result)
+
 
                 elif "searchyoutube" in msg.text.lower():
                     sep = text.split(" ")
@@ -950,50 +961,98 @@ def lineBot(op):
                             ret_ += "\n╠ https://www.youtube.com{}".format(str(data["href"]))
                         ret_ += "\n╚══[ Total {} ]".format(len(datas))
                         line.sendMessage(to, str(ret_))
-                elif "searchmusic" in msg.text.lower():
-                    sep = text.split(" ")
-                    search = text.replace(sep[0] + " ","")
-                    params = {'songname': search}
-                    with requests.session() as web:
-                        web.headers["User-Agent"] = random.choice(settings["userAgent"])
-                        r = web.get("https://ide.fdlrcn.com/workspace/yumi-apis/joox?" + urllib.parse.urlencode(params))
+
+                elif 'yt-mp3 ' in msg.text.lower():
+                    try:
+                        query = msg.text.lower().replace('yt-mp3 ', '')
+                        path = 'http://rahandiapi.herokuapp.com/youtubeapi/search?key=betakey&q=%s' % query
+                        r = requests.get(path)
+                        data = r.json()
+                        for data in data['result'].get('audiolist', []):
+                            line.sendAudioWithURL(msg.to,data['url'][4])
+                    except Exception as e:
+                        line.sendText(msg.to,str(e))
+
+                elif text.lower().startswith('fs '):
+                    key = text.lower().replace('fs ', '')
+                    nomor = []
+                    for a in range(1, 22):
+                        nomor.append(a)
+                    b,c = random.choice(nomor),urllib.parse.quote(key)
+                    path = 'https://farzain.xyz/api/fansign/fs%20({0}).php?text={1}'.format(b,c)
+                    line.sendImageWithURL(receiver,path)
+                    
+                elif text.lower().startswith("movie "):
+                    try:
+                        search = text.lower().replace("movie ","")
+                        r = requests.get("https://farzain.xyz/api/film.php?apikey=Your_Api_Key&id={}".format(urllib.parse.quote(search)))
+                        data = r.text
+                        data = json.loads(data)
+                        hasil = "「 Hasil Film 」\n"
+                        hasil += "\nJudul : {}".format(str(data["Title"]))
+                        hasil += "\nTahun : {}".format(str(data["Year"]))
+                        hasil += "\nRating : {}".format(str(data["Rated"]))
+                        hasil += "\nRilis : {}".format(str(data["Released"]))
+                        hasil += "\nDurasi : {}".format(str(data["Runtime"]))
+                        hasil += "\nTipe :{}".format(str(data["Genre"]))
+                        hasil += "\nSutradara : {}".format(str(data["Director"]))
+                        hasil += "\nPenulis :{}".format(str(data["Writer"]))
+                        hasil += "\nAktor : {}".format(str(data["Actors"]))
+                        hasil += "\nSinopsis :{}".format(str(data["Plot"]))
+                        hasil += "\nBahasa :{}".format(str(data["Language"]))
+                        hasil += "\nNegara :{}".format(str(data["Country"]))
+                        hasil += "\nPenghargaan :{}".format(str(data["Awards"]))
+                        hasil += "\n\nLink : \n1. Image : {}".format(str(data["Poster"]))
+                        line.sendImageWithURL(msg.to, str(data["Poster"]))
+                        line.sendMessage(msg.to, str(hasil))
+                    except Exception as error:
+                        line.sendMessage(msg.to, str(error))
+
+                elif '1cak' in msg.text.lower():
+                    try:
+                        path = 'http://api-1cak.herokuapp.com/random'
+                        r = requests.get(path)
+                        data = r.json()
+                        result = 'Title : %s\nID : %d\nUrl : %s' % (data['title'],data['id'],data['url'])
+                        line.sendText(msg.to,result)
+                        line.sendImageWithURL(msg.to,data['img'])
+                    except Exception as e:
+                        line.sendText(msg.to,str(e))
+                elif "imgur " in msg.text.lower():
+            	        query = text.lower().replace("imgur ","")
+                        r = requests.get("https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/" + query + "?offset=1")
+                        data=r.text
+                        data=json.loads(r.text)                                                                                                                                         
+                        if data != []:                                                                  
+                            for food in data:                                                                                                     
+                                    line.sendImageWithURL(msg.to, str(food["url"]))
+
+                elif "music " in msg.text.lower():
                         try:
-                            data = json.loads(r.text)
-                            for song in data:
-                                ret_ = "「Music」"
-                                ret_ += "\n• Nama lagu : {}".format(str(song[0]))
-                                ret_ += "\n• Durasi : {}".format(str(song[1]))
-                                ret_ += "\n• Link : {}".format(str(song[4]))
-                                ret_ += "\n「Audio」"
-                                line.sendMessage(to, str(ret_))
-                                line.sendAudioWithURL(to, song[3])
-                        except:
-                            line.sendMessage(to, "Musik tidak ditemukan")
-                elif "searchlyric" in msg.text.lower():
-                    sep = text.split(" ")
-                    search = text.replace(sep[0] + " ","")
-                    params = {'songname': search}
-                    with requests.session() as web:
-                        web.headers["User-Agent"] = random.choice(settings["userAgent"])
-                        r = web.get("https://ide.fdlrcn.com/workspace/yumi-apis/joox?" + urllib.parse.urlencode(params))
-                        try:
-                            data = json.loads(r.text)
-                            for song in data:
-                                songs = song[5]
-                                lyric = songs.replace('ti:','Title - ')
-                                lyric = lyric.replace('ar:','Artist - ')
-                                lyric = lyric.replace('al:','Album - ')
-                                removeString = "[1234567890.:]"
-                                for char in removeString:
-                                    lyric = lyric.replace(char,'')
-                                ret_ = "「Lyric」"
-                                ret_ += "\n• Nama lagu : {}".format(str(song[0]))
-                                ret_ += "\n• Durasi : {}".format(str(song[1]))
-                                ret_ += "\n• Link : {}".format(str(song[4]))
-                                ret_ += "\n「Finish」\n{}".format(str(lyric))
-                                line.sendMessage(to, str(ret_))
-                        except:
-                            line.sendMessage(to, "Lirik tidak ditemukan")
+                            search = text.lower().replace("music ","")
+                            r = requests.get("https://farzain.xyz/api/joox.php?apikey=your_api_key&id={}".format(urllib.parse.quote(search))) #untuk api key bisa requests ke web http://www.farzain.xyz/requests.php
+                            data = r.text
+                            data = json.loads(data)
+                            info = data["info"]
+                            audio = data["audio"]
+                            hasil = "「 Hasil Musik 」\n"
+                            hasil += "\nPenyanyi : {}".format(str(info["penyanyi"]))
+                            hasil += "\nJudul : {}".format(str(info["judul"]))
+                            hasil += "\nAlbum : {}".format(str(info["album"]))
+                            hasil += "\n\nLink : \n1. Image : {}".format(str(data["gambar"]))
+                            hasil += "\n\nLink : \n2. MP3 : {}".format(str(audio["mp3"]))
+                            hasil += "\n\nLink : \n3. M4A : {}".format(str(audio["m4a"]))
+                            line.sendImageWithURL(msg.to, str(data["gambar"]))
+                            line.sendMessage(msg.to, str(hasil))
+                            line.sendMessage(msg.to, "Downloading...")
+                            line.sendMessage(msg.to, "「 Result MP3 」")
+                            line.sendAudioWithURL(msg.to, str(audio["mp3"]))
+                            line.sendMessage(msg.to, "「 Result M4A 」")
+                            line.sendVideoWithURL(msg.to, str(audio["m4a"]))
+                            line.sendMessage(msg.to, "Success Download...")
+                            except Exception as error:
+                        	line.sendMessage(msg.to, str(error))
+                        	
             elif msg.contentType == 7:
                 if settings["checkSticker"] == True:
                     stk_id = msg.contentMetadata['STKID']
