@@ -146,7 +146,6 @@ def helpmedia():
                    "╠ Fs「Word」" + "\n" + \
                    "╠ Music「Search」" + "\n" + \
                    "╠ 1cak「Search」" + "\n" + \
-                   "╠ Imgur「Search」" + "\n" + \
                    "╠ Movie「Search」" + "\n" + \
                    "╠ SearchImage「Search」" + "\n" + \
                    "╠ Announce「Word」" + "\n" + \
@@ -1018,14 +1017,6 @@ def lineBot(op):
                         line.sendImageWithURL(msg.to,data['img'])
                     except Exception as e:
                         line.sendText(msg.to,str(e))
-                elif "imgur " in msg.text.lower():
-            	        query = text.lower().replace("imgur ","")
-                        r = requests.get("https://cryptic-ridge-9197.herokuapp.com/api/imagesearch/" + query + "?offset=1")
-                        data=r.text
-                        data=json.loads(r.text)                                                                                                                                         
-                        if data != []:                                                                  
-                            for food in data:                                                                                                     
-                                    line.sendImageWithURL(msg.to, str(food["url"]))
 
                 elif "music " in msg.text.lower():
                         try:
