@@ -231,7 +231,6 @@ def lineBot(op):
                     "time": time.time()
                 }
                 tmp_unsend["list"].append(new)
-                }
 #==============================================================================#
                 if text.lower() == 'help':
                     helpMessage = helpmessage()
