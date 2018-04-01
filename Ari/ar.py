@@ -11,7 +11,7 @@ from googletrans import Translator
 #==============================================================================#
 botStart = time.time()
 
-line = LINE("ErSMFtSKllCr5ro6kMu9.yUnazXTjcZ0bINB6Xni1cq.sXvrubHa2SDymhMPAMN6mkWfK+1Npz4r69Ru2T1nP5g=")
+line = LINE("EruoA4SLPo1KVmfmUvI9.yUnazXTjcZ0bINB6Xni1cq.FjeiYmrj9UwP+7Y3Qfwv8qC9ALo/jkdy+rCDvKRnOQw=")
 line.log("Auth Token : " + str(line.authToken))
 line.log("Timeline Token : " + str(line.tl.channelAccessToken))
 lineMID = line.profile.mid
@@ -67,10 +67,28 @@ myProfile = {
 	"pictureStatus": ""
 }
 
+tmp_unsned = {
+    "status": True,
+    "timeUnsend": 60,
+    "list": []
+
+}
+
 myProfile["displayName"] = lineProfile.displayName
 myProfile["statusMessage"] = lineProfile.statusMessage
 myProfile["pictureStatus"] = lineProfile.pictureStatus
 #==============================================================================#
+def autoUnsend():
+    if not tmp_unsend["list"]:
+        return
+    times = time.time()
+    delThis = []
+    for us in tmp_unsend["list"]:
+        if times - us["time"] >= tmp_unsend["timeUnsend"]:
+            line.unsnedMessage(us["id"])
+            delThis.append(us)
+    for dl in delThis
+        tmp_unsend["list"].remove(dl)
 def restartBot():
     print ("[ INFO ] BOT RESETTED")
     time.sleep(3)
@@ -90,7 +108,7 @@ def sendMessageWithMention(to, mid):
         line.sendMessage(to, text_, contentMetadata={'MENTION':'{"MENTIONEES":['+aa+']}'}, contentType=0)
     except Exception as error:
         logError(error)
-        
+
 def helpmessage():
     helpMessage = "╔══[ Help Message ]" + "\n" + \
                   "╠ Self" + "\n" + \
@@ -141,13 +159,13 @@ def helpmedia():
                    "╠ CheckDate「Date」" + "\n" + \
                    "╠ InstaInfo「UserName」" + "\n" + \
                    "╠ InstagramPost「UserName」" + "\n" + \
-                   "╠ SearchYoutube「Search」" + "\n" + \
+                   "╠ Youtube「Search」" + "\n" + \
                    "╠ Yt-mp3「Search」" + "\n" + \
                    "╠ Fs「Word」" + "\n" + \
                    "╠ Music「Search」" + "\n" + \
                    "╠ 1cak「Search」" + "\n" + \
                    "╠ Movie「Search」" + "\n" + \
-                   "╠ SearchImage「Search」" + "\n" + \
+                   "╠ Image「Search」" + "\n" + \
                    "╠ Announce「Word」" + "\n" + \
                    "╠ Ssweb「LinkURL」" + "\n" + \
                    "╚══[ Jangan Typo ]"
@@ -205,6 +223,15 @@ def lineBot(op):
             if msg.contentType == 0:
                 if text is None:
                     return
+        if op.type =- 25:
+            msg = op.message
+            if tmp_unsend["status"]
+                new = {
+                    "id": msg.id,
+                    "time": time.time()
+                }
+                tmp_unsend["list"].append(new)
+                }
 #==============================================================================#
                 if text.lower() == 'help':
                     helpMessage = helpmessage()
@@ -913,7 +940,7 @@ def lineBot(op):
                                     print (node['display_src'])
                                     line.sendImageWithURL(msg.to,node['display_src'])
                             end_cursor = re.search(r'"end_cursor": "([^"]+)"', r.text).group(1)
-                elif "searchimage" in msg.text.lower():
+                elif "image" in msg.text.lower():
                     separate = msg.text.split(" ")
                     search = msg.text.replace(separate[0] + " ","")
                     with requests.session() as web:
@@ -930,19 +957,14 @@ def lineBot(op):
 
                 elif text.lower() == 'announce':
                     gett = line.getChatRoomAnnouncements(receiver)
-                    gr = line.getGroup(receiver).name
-                    result = '[Announce On %s:]\n\n' % gr
-                    for i,a in enumerate(gett,1):
-                        aa = line.getContact(a.creatorMid).displayName
+                    for a in gett:
+                        aa = line.getContact(line.profile.mid).displayName
                         bb = a.contents
                         cc = bb.link
                         textt = bb.text
-                        result+='%d.Link: %s\nText : %s\nMaker : %s' % (i,str(cc),str(textt),str(aa))
-                    result+='Total Announcement : %s' % len(gett)
-                    line.sendMessage(receiver,result)
+                        line.sendText(receiver, 'Link: ' + str(cc) + '\nText: ' + str(textt) + '\nMaker: ' + str(aa))
 
-
-                elif "searchyoutube" in msg.text.lower():
+                elif "youtube" in msg.text.lower():
                     sep = text.split(" ")
                     search = text.replace(sep[0] + " ","")
                     params = {"search_query": search}
