@@ -87,7 +87,7 @@ def autoUnsend():
         if times - us["time"] >= tmp_unsend["timeUnsend"]:
             line.unsnedMessage(us["id"])
             delThis.append(us)
-    for dl in delThis
+    for dl in delThis:
         tmp_unsend["list"].remove(dl)
 def restartBot():
     print ("[ INFO ] BOT RESETTED")
