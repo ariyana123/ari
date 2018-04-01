@@ -223,7 +223,7 @@ def lineBot(op):
             if msg.contentType == 0:
                 if text is None:
                     return
-        if op.type =- 25:
+        if op.type == 25:
             msg = op.message
             if tmp_unsend["status"]
                 new = {
