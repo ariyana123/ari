@@ -225,7 +225,7 @@ def lineBot(op):
                     return
         if op.type == 25:
             msg = op.message
-            if tmp_unsend["status"]
+            if tmp_unsend["status"]:
                 new = {
                     "id": msg.id,
                     "time": time.time()
