@@ -576,7 +576,7 @@ def lineBot(op):
                     group = line.getGroup(to)
                     path = "http://dl.profile.line-cdn.net/" + group.pictureStatus
                     line.sendImageWithURL(to, path)
-                elif text.lower() == 'groupname':
+                elif text.lower() == 'groupname.':
                     gid = line.getGroup(to)
                     line.sendMessage(to, "[Nama Group : ]\n" + gid.name)
                 elif text.lower() == 'groupticket':
