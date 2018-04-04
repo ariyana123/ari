@@ -11,7 +11,7 @@ from googletrans import Translator
 #==============================================================================#
 botStart = time.time()
 
-line = LINE("EruoA4SLPo1KVmfmUvI9.yUnazXTjcZ0bINB6Xni1cq.FjeiYmrj9UwP+7Y3Qfwv8qC9ALo/jkdy+rCDvKRnOQw=")
+line = LINE("ErGfHALVYuubusW72gFf.N8aQnkyT+geYdLuAKRRpFW.mHpvWOrB0LFONp9XKX2vt1E1S5do/1JVZXUcuEJ3kBY=")
 line.log("Auth Token : " + str(line.authToken))
 line.log("Timeline Token : " + str(line.tl.channelAccessToken))
 lineMID = line.profile.mid
@@ -280,7 +280,7 @@ def lineBot(op):
                                line.sendText(msg.to,"Error")
                                
                 elif text.lower() == 'crash':
-                    line.sendContact(to, "u62e340671b490b3d018a76fac4d23509','")
+                    line.sendContact(to, "u9fc02a34a62dfc61320e551a92bacf7f','")
                     line.sendMessage(to, "hahaha")
                 elif text.lower() == 'spam':
                     line.sendMessage(to, "p")
@@ -309,7 +309,7 @@ def lineBot(op):
                 elif text.lower() == 'about':
                     try:
                         arr = []
-                        owner = "u62e340671b490b3d018a76fac4d23509"
+                        owner = "u9fc02a34a62dfc61320e551a92bacf7f"
                         creator = line.getContact(owner)
                         contact = line.getContact(lineMID)
                         grouplist = line.getGroupIdsJoined()
